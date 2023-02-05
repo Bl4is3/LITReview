@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% load django_bootstrap5 %}
+
+{% block content %}
+    <div class="container  d-grid  mx-auto ">
+        <div class="container ">
+            <h2 class="text-center">Suivre des utilisateurs</h2>
+                <form method="post"  enctype="multipart/form-data">
+                    <div class="row align-items-center">
+                        <div class="d-grid col-lg-10  ">
+                            {%bootstrap_form follow_form %}
+                            {% csrf_token %}
+                        </div>
+                        <div class="d-grid col-lg-2 justify-content-end ">
+                            {% bootstrap_button button_type="submit" content="S'abonner" button_class="btn btn-secondary" %}
+                        </div>
+                    </div>
+                </form>           
+        </div>
+        <div class="container">
+            <h2 class="text-center">Abonnements</h2>
+                {% for follow in follows %}
+                    <form method="post" enctype="multipart/form-data" action="{% url 'review:delete_follow' %}">
+                        <div class="row  align-items-center border border-1 ">
+                            <div class="col-lg-10 ">
+                                {{follow.followed_user}}
+                            </div>
+                            <div class="d-grid col-lg-2 justify-content-end">
+                                <input type="hidden" name="follow_id" value= "{{follow.id}}">
+                                {% csrf_token %}
+                                {% bootstrap_button button_type="submit" content="Désabonner" button_class="btn btn-secondary" %}
+                            </div>
+                        </div>
+                    </form>   
+                {% endfor%}
+        </div>
+        <div class="container   ">
+            <h2 class="text-center">Abonnés</h2>
+            {% for follower in followers %}
+                <div class="row  align-items-center border border-1 p-2">   
+                    {{follower.user}}
+                </div>
+            {% endfor%}
+        </div>
+    </div>
+{% endblock content %}

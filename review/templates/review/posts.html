@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h3 class="text-center">Bienvenue {{user|title}} sur la page de vos posts</h3>
+    <div class=" container  mt-4 d-grid r  gap-2 col-8 mx-auto">
+        {% for post in posts %}
+            {% if post.content_type == 'TICKET' %} 
+                <div class="post border border-grey border-1">
+                    <p>Le {{post.time_created}}</p>
+                    <p>{{ post.title }}</p>
+                    <img src="{{ post.image.url }}">
+                    <div class= "row justify-content-end ">
+                        <div class="col-2">
+                            <a href="{% url 'review:update_ticket' post.id%}" class="btn btn-secondary">Modifier</a>
+                        </div>
+                        <div class="col-2">
+                            <form method="post" enctype="multipart/form-data" action="{% url 'review:delete_ticket' %}">
+                                <input type="hidden" name="ticket_id" value= "{{post.id}}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-secondary" >Supprimer</button>
+                            </form> 
+                        </div>
+                    </div>      
+                </div>
+            {% elif post.content_type == 'REVIEW' %}
+            <div class="post border border-grey border-1">
+                <p>Le {{post.time_created}}</p>
+                <div class=" d-flex gap-2 flex-row justify-content-start align-items-center">
+                    <div class="d-inline-flex ">
+                        <h4>{{ post.headline }}  -  </h4>  
+                    </div>
+                    <div class="d-inline-flex gap-1">
+                        {% include 'review/stars.html'%}
+                    </div>
+                </div>
+                <div class= "row justify-content-end ">
+                    <div class="col-2">
+                        <a href="{% url 'review:update_review' post.id%}" class="btn btn-secondary">Modifier</a>
+                    </div>
+                    <div class="col-2">
+                        <form method="post" enctype="multipart/form-data" action="{% url 'review:delete_review' %}">
+                            <input type="hidden" name="review_id" value= "{{post.id}}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-secondary" >Supprimer</button>
+                        </form> 
+                    </div>
+                    
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %} 
+    </div>
+{% endblock content %}

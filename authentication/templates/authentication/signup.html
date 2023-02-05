@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class=" container ">
+    <h2 class=" text-center">Inscrivez-vous</h2>
+    {% if form.errors %}
+        {{ form.errors }}
+    {% endif %}
+    <div class="container-signup col-6 mx-auto">
+        <form method="post" class="">
+            {{ form|crispy }}
+            {% csrf_token %}
+            <div class="row justify-content-end ">
+                <div class="col-2">
+                    <a href="{% url 'authentication:login' %}" class="btn btn-secondary ">Accueil</a>
+                </div>
+                <div class="col-2">
+                    <button type="submit"  class="btn btn-secondary">S’inscrire</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}

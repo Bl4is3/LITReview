@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container d-grid gap-2 col-8 mx-auto ">
+        <div class="row">
+            <div class="col d-grid justify-content-center">
+                <a href="{% url 'review:create_edit_ticket' %}" class="btn btn-secondary">Demander une critique</a>
+            </div>
+            <div class="col d-grid justify-content-center">
+                <a href="{% url 'review:create_edit_review' 0 %}" class="btn btn-secondary">Créer une critique</a>
+            </div>
+        </div>
+    </div>
+    <div class=" container  mt-4 d-grid  gap-2 col-8 ">
+        {% for post in posts %}
+            {% if post.content_type == 'TICKET' %} 
+                <div class="post container border border-grey border-1 p-2 m-2">
+                    <strong>{{ post.user|title}}</strong> a demandé une critique  
+                    <p class="d-grid justify-content-end">{{post.time_created}}</p>
+                    <p>{{ post.title }}</p>
+                    <p>{{ post.description }}</p>
+                    <img src="{{ post.image.url }}">
+                    <div class="d-grid justify-content-end">
+                        {% if post not in tickets_in_review%}
+                            <p><a href="{% url 'review:create_edit_review' post.id%}" class="  btn btn-secondary ">Créer une critique</a></p>
+                        {% endif%}
+                    </div>
+                </div>
+            {% elif post.content_type == 'REVIEW' %}
+                <div class="post container border border-grey border-1 p-2 m-2">
+                    <strong>{{ post.user|title}}</strong> a publié une critique
+                    <p class="d-grid justify-content-end">{{post.time_created}}</p>
+                    <div class="d-inline-flex ">
+                        <h4>{{ post.headline }}  -  </h4>  
+                    </div>
+                    <div class="d-inline-flex gap-1">
+                        {% include 'review/stars.html'%}
+                    </div>
+                    <div class="border border-grey border-1 p-2 ">
+                        <p>Ticket - {{ post.ticket.user }}</p>
+                        <p> {{post.ticket.title}}</p>
+                        <img src="{{ post.ticket.image.url }}">
+                    </div>
+                    </fieldset>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock content %}

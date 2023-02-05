@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% load  django_bootstrap5 %}
+
+{% block content %}
+<div class="container">
+    {% if review_form.instance.id%}
+        <h2 class=" text-center">Modifier une critique</h2>
+    {% else%}
+        <h2 class=" text-center">Créer une critique</h2>
+    {% endif%}
+    <form method="post" enctype="multipart/form-data" class="row">
+        {%bootstrap_form ticket_form %}
+        test {{ticket_user}}
+        {% if ticket_form.instance.id %}
+            <p><img src="{{ ticket_form.instance.image.url }}"></p>
+        {% endif %}
+        {%bootstrap_form review_form %}
+        {% csrf_token %}
+        <div class="row justify-content-end"> 
+            <div class="d-grid col-2">
+                {% if review_form.instance.id%}
+                    <button type="submit" class="btn btn-secondary">Modifier</button>
+                {% else%}
+                <button type="submit" class="btn btn-secondary">Créer</button>
+                {% endif%}
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock content %}
