@@ -11,7 +11,7 @@
     {% endif%}
     <form method="post" enctype="multipart/form-data" class="row">
         {%bootstrap_form ticket_form %}
-        test {{ticket_user}}
+        
         {% if ticket_form.instance.id %}
             <p><img src="{{ ticket_form.instance.image.url }}"></p>
         {% endif %}

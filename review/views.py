@@ -5,6 +5,7 @@ from django.http import Http404
 from django.contrib.auth.decorators import login_required, permission_required
 from django.forms import formset_factory
 from django.db.models import CharField, Value, Q
+from django.core.paginator import Paginator
 
 from .forms import TicketForm, ReviewForm, FollowUsersForm
 from review.models import Ticket, Review, UserFollows
@@ -32,6 +33,13 @@ def feed(request):
         key=lambda post: post.time_created,
         reverse=True,
     )
+
+    paginator = Paginator(posts, 6)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+
     return render(request, "review/feed.html", locals())
 
 
@@ -50,7 +58,7 @@ def create_edit_review(request, review_id=None, ticket_id=0):
     )
     if request.method == "POST" and review_form.is_valid() and ticket_form.is_valid():
         ticket = ticket_form.save(commit=False)
-        if ticket.user is None:
+        if not 'user' in ticket_form.cleaned_data:
             ticket.user = request.user
         ticket.save()
         review = review_form.save(commit=False)

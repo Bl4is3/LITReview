@@ -19,6 +19,10 @@ class TicketForm(forms.ModelForm):
     class Meta:
         model = Ticket
         fields = ["title", "description", "image"]
+        widgets = {
+            'description':forms.Textarea(),
+            'image' : forms.FileInput()
+        }
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
