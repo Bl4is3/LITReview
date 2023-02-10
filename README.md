@@ -17,7 +17,7 @@ Importez le projet:
 git clone https://github.com/Bl4is3/LITReview.git
 ```
 
-Création de l'envirronement virtuel et installation des dépendances:
+Création de l'environnement virtuel et installation des dépendances:
 
 ```
 mkdir .venv
