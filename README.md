@@ -30,8 +30,9 @@ python manage.py runserver
 
 
 Un utilisateur peut :
-    • se connecter et s’inscrire – le site n'est pas être accessible aux utilisateurs non connectés;
-    • consulter un flux contenant les derniers tickets et les commentaires des utilisateurs qu'il suit; 
+* se connecter et s’inscrire – le site n'est pas être accessible aux utilisateurs non connectés;
+* consulter un flux contenant les derniers tickets et les commentaires des utilisateurs qu'il suit; 
+
     • créer de nouveaux tickets pour demander une critique sur un livre/article ;
     • créer des critiques en réponse à des tickets;
     • créer des critiques qui ne sont pas en réponse à un ticket;
