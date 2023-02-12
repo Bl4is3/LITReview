@@ -58,7 +58,7 @@ def create_edit_review(request, review_id=None, ticket_id=0):
     )
     if request.method == "POST" and review_form.is_valid() and ticket_form.is_valid():
         ticket = ticket_form.save(commit=False)
-        if not 'user' in ticket_form.cleaned_data:
+        if not ticket.user:
             ticket.user = request.user
         ticket.save()
         review = review_form.save(commit=False)
