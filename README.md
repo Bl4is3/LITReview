@@ -15,6 +15,7 @@ Importez le projet:
 
 ```
 git clone https://github.com/Bl4is3/LITReview.git
+cd LITReview
 ```
 
 Création de l'environnement virtuel et installation des dépendances:
@@ -22,6 +23,7 @@ Création de l'environnement virtuel et installation des dépendances:
 ```
 mkdir .venv
 pipenv install
+pipenv shell
 python manage.py runserver
 
 ```
